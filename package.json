@@ -19,10 +19,10 @@
     "homepage": "https://github.com/AndSco/superintl#readme",
     "dependencies": {
         "go-npm": "^0.1.9"
-    }, 
+    },
     "goBinary": {
-      "name": "command-name",
-      "path": "./bin",
-      "url": "https://github.com/user/my-go-package/releases/download/v{{version}}/myGoPackage_{{version}}_{{platform}}_{{arch}}.tar.gz"
+        "name": "command-name",
+        "path": "./bin",
+        "url": "https://github.com/AndSco/superintl/releases/download/v{{version}}/superintl_{{version}}_{{platform}}_{{arch}}.tar.gz"
     }
 }
