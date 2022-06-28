@@ -1,0 +1,28 @@
+{
+    "name": "superintl",
+    "version": "0.1.0",
+    "description": "Scaffolder for NextJS multilingual apps",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "go-npm install",
+        "preuninstall": "go-npm uninstall"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AndSco/superintl.git"
+    },
+    "author": "andSco",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AndSco/superintl/issues"
+    },
+    "homepage": "https://github.com/AndSco/superintl#readme",
+    "dependencies": {
+        "go-npm": "^0.1.9"
+    }, 
+    "goBinary": {
+      "name": "command-name",
+      "path": "./bin",
+      "url": "https://github.com/user/my-go-package/releases/download/v{{version}}/myGoPackage_{{version}}_{{platform}}_{{arch}}.tar.gz"
+    }
+}
