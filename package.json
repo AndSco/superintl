@@ -21,7 +21,7 @@
         "go-npm": "^0.1.9"
     },
     "goBinary": {
-        "name": "command-name",
+        "name": "superintl",
         "path": "./bin",
         "url": "https://github.com/AndSco/superintl/releases/download/v{{version}}/superintl_{{version}}_{{platform}}_{{arch}}.tar.gz"
     }
