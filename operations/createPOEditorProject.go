@@ -19,6 +19,7 @@ type ResponseInfo struct {
 
 type ProjectInfo struct {
 	Id int `json:"id"`
+	Name string `json:"name"`
 }
 
 type ProjectData struct {
@@ -30,16 +31,17 @@ type POEditorResponse struct {
 	Result   ProjectData  `json:"result"`
 }
 
-func CreatePOEditorProject(projectName, POEditorToken string) {
+func CreatePOEditorProject(projectName, POEditorToken, defaultLangCode string, otherLangCodes []string) {
+	allLangCodes := append(otherLangCodes, defaultLangCode)
 	data := strings.NewReader(`api_token=` + POEditorToken + `&name=` + projectName)
 	projectCreationResponse := sendRequestToPOEditor("https://api.poeditor.com/v2/projects/add", data)
 
 	if requestWasSuccesful(projectCreationResponse) {
-		addProjectLanguages(projectCreationResponse.Result.Project.Id, POEditorToken, []string{"it", "de", "fr"})
+		addProjectLanguages(projectCreationResponse.Result.Project.Id, POEditorToken, defaultLangCode, allLangCodes)
 	}
 }
 
-func addProjectLanguages(projectId int, POEditorToken string, langCodes []string) {
+func addProjectLanguages(projectId int, POEditorToken, defaultLangCode string, langCodes []string) {
 	resultsChannel := make(chan POEditorResponse)
 	var wg sync.WaitGroup
 	wg.Add(len(langCodes))
@@ -52,7 +54,7 @@ func addProjectLanguages(projectId int, POEditorToken string, langCodes []string
 
 	wg.Wait()
 	close(resultsChannel)
-	specifyDefaultLang(projectId, POEditorToken, "it")
+	specifyDefaultLang(projectId, POEditorToken, defaultLangCode)
 }
 
 func addLanguage(projectId int, POEditorToken string, languageCode string, resultsChannel chan POEditorResponse, wg *sync.WaitGroup) {
@@ -74,8 +76,10 @@ func communicateResults(ch chan POEditorResponse) {
 func specifyDefaultLang(projectId int, POEditorToken string, defaultLangCode string) {
 	stringifiedId := strconv.Itoa(projectId)
 	data := strings.NewReader(`api_token=` + POEditorToken + `&id=` + stringifiedId + `&reference_language=` + defaultLangCode)
-	sendRequestToPOEditor("https://api.poeditor.com/v2/projects/update", data)
-
+	response := sendRequestToPOEditor("https://api.poeditor.com/v2/projects/update", data)
+	if response.Response.Code == "200" {
+		utils.Success(fmt.Sprintf("✔ Created project %s on POEditor. You can find it at this address: %s", response.Result.Project.Name, "https://poeditor.com/projects/view?id=" + stringifiedId))
+	}
 }
 
 func sendRequestToPOEditor(url string, data *strings.Reader) POEditorResponse {

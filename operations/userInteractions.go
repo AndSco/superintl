@@ -56,6 +56,14 @@ func AskOtherLocales(defaultLocale string) []constants.Iso_Lang {
 	return parsedOtherLocales
 }
 
+func HandlePOEditorProjectCreation(projectName, defaultLangCode string, otherLangCodes []string) {
+	wantsToCreatePOEditorProject := utils.GetInputOnSameLine("❓ Do you want to create a project on POEditor? y/n ")
+	if (sanitizeInput(wantsToCreatePOEditorProject) == "y") {
+		POEditorToken := utils.GetInputOnSameLine("Enter your POEditor api token (you can find it here https://poeditor.com/account/api): ")
+		CreatePOEditorProject(projectName, sanitizeInput(POEditorToken), defaultLangCode, otherLangCodes)
+	}
+}
+
 func alertInvalidLanguage(input string) {
 	utils.Alert(fmt.Sprintf("'%s' is not a supported locale! Have a look at https://poeditor.com/docs/languages for a comprehensive list", input))
 }
