@@ -32,13 +32,10 @@ func main() {
 	for _, loc := range otherLocales {
 		otherLocalesCodes = append(otherLocalesCodes, loc.Code)
 	}
-	var wg sync.WaitGroup
-	wg.Add(1)
-	operations.HandlePOEditorProjectCreation(projectName, defaultLocale.Code, otherLocalesCodes, &wg)
-	wg.Wait()
-	// operations.HandlePOEditorProjectCreation(projectName, defaultLocale.Code, otherLocalesCodes)
+	operations.HandlePOEditorProjectCreation(projectName, defaultLocale.Code, otherLocalesCodes)
 	utils.Warn("🚀 Creating project...")
 	operations.CreateFilesForIntlMessages(defaultLocale, otherLocales, srcFolderPath)
+	var wg sync.WaitGroup
 
 	wg.Add(13)
 	go operations.CreateLocalesTsConfig(&wg, rootPath)
