@@ -1,7 +1,7 @@
 {
     "name": "superintl",
     "version": "0.1.1-0",
-    "description": "Scaffolder for NextJS multilingual apps",
+    "description": "Scaffolder for React multilingual apps",
     "main": "index.js",
     "scripts": {
         "postinstall": "go-npm install",
