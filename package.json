@@ -1,6 +1,6 @@
 {
     "name": "superintl",
-    "version": "0.1.0-8",
+    "version": "0.1.1-0",
     "description": "Scaffolder for NextJS multilingual apps",
     "main": "index.js",
     "scripts": {
