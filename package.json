@@ -17,12 +17,12 @@
         "url": "https://github.com/AndSco/superintl/issues"
     },
     "homepage": "https://github.com/AndSco/superintl#readme",
-    "dependencies": {
-        "go-npm": "^0.1.9"
-    },
     "goBinary": {
         "name": "superintl",
         "path": "./bin",
         "url": "https://github.com/AndSco/superintl/releases/download/v{{version}}/superintl_{{version}}_{{platform}}_{{arch}}.tar.gz"
+    },
+    "dependencies": {
+        "@gzuidhof/go-npm": "^0.1.13"
     }
 }
