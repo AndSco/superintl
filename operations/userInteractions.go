@@ -3,6 +3,7 @@ package operations
 import (
 	"fmt"
 	"strings"
+	"sync"
 
 	"superkoders.com/intl/constants"
 	"superkoders.com/intl/utils"
@@ -56,7 +57,7 @@ func AskOtherLocales(defaultLocale string) []constants.Iso_Lang {
 	return parsedOtherLocales
 }
 
-func HandlePOEditorProjectCreation(projectName, defaultLangCode string, otherLangCodes []string) {
+func HandlePOEditorProjectCreation(projectName, defaultLangCode string, otherLangCodes []string, wg *sync.WaitGroup) {
 	wantsToCreatePOEditorProject := utils.GetInputOnSameLine("❓ Do you want to create a project on POEditor? y/n ")
 	if (sanitizeInput(wantsToCreatePOEditorProject) == "y") {
 		POEditorToken := utils.GetInputOnSameLine("Enter your POEditor api token (you can find it here https://poeditor.com/account/api): ")
